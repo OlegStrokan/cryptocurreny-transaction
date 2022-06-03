@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 contract Transactions {
     uint256 transactionCount;
 
-    event Transaction(address from, address receiver, uint amount, string message, uint256 timestamp, string keyword);
+    event Transfer (address from, address receiver, uint amount, string message, uint256 timestamp, string keyword);
 
     struct TransferStruct {
         address sender;
@@ -31,7 +31,7 @@ contract Transactions {
         return transactions;
     }
 
-    function getTransactionCount() public view returns (i) {
+    function getTransactionCount() public view returns (uint) {
         return transactionCount;
     }
 }
