@@ -1,7 +1,7 @@
 import React from 'react';
 import {ethers } from 'ethers'
 import { contractABI, contractAddress } from '../utils/constans';
-export const TransactionContext = React.createContext(null);
+export const TransactionContext = React.createContext(null as any);
 // @ts-ignore
 const { ethereum } = window;
 
@@ -9,17 +9,35 @@ const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  return { provider, signer, transactionContract }
 }
 
 
 export const TransactionProvider =  ({ children }: any) => {
 
-  const [connectedAccount, setConnectedAccount] = React.useState('');
+  const [currentAccount, setCurrentAccount] = React.useState('');
+  const [formData, setFormData] = React.useState({ addressTo: '', amount: '', keyword: '', message: ''});
+
+  const handleChange = (e: any, name: any) => {
+    setFormData((prevState) => ({ ...prevState, [name]: e.target.value}))
+  }
 
   const checkIfWalletIsConnected = async () => {
-    if (!ethereum) return alert('Please install metamask');
+    try {
+      if (!ethereum) return alert('Please install metamask');
 
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length) {
+        setCurrentAccount(accounts[0])
+      } else {
+
+      }
+    }
+    catch (e) {
+
+    }
   }
 
   const connectWallet = async () => {
@@ -28,7 +46,7 @@ export const TransactionProvider =  ({ children }: any) => {
 
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 
-      setConnectedAccount(accounts[0])
+      setCurrentAccount(accounts[0])
 
     } catch (e) {
         throw new Error('No ethereum object')
@@ -45,7 +63,7 @@ export const TransactionProvider =  ({ children }: any) => {
 
 
   return (
-    <TransactionContext.Provider value={{ connectWallet } as any}>
+    <TransactionContext.Provider value={{ connectWallet, currentAccount, formData, setFormData, handleChange } as any}>
       {children}
     </TransactionContext.Provider>
   )
