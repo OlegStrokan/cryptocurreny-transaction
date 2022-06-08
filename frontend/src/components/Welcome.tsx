@@ -21,7 +21,7 @@ const Input = ({ placeholder, name, type, value, handleChange }: any) => (
 );
 
 export const Welcome = () => {
-  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading }: any = useContext(TransactionContext);
 
   const handleSubmit = (e: any) => {
     const { addressTo, amount, keyword, message } = formData;
