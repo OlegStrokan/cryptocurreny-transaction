@@ -41,6 +41,15 @@ export const TransactionProvider = ({ children }: any) => {
     }
   }
 
+  const checkIfTransactionsExist = async () => {
+    try {
+      const transactionContract = getEthereumContract();
+      const transactionCount = await transactionContract.getTransactionCount();
+    } catch (e) {
+
+    }
+  }
+
   const connectWallet = async() => {
     try {
       if (!ethereum) return alert('Please install metamask');

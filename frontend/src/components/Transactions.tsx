@@ -45,7 +45,7 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, keyword,
   );
 };
 
-const Transactions = () => {
+export const Transactions = () => {
   const { transactions, currentAccount } = React.useContext(TransactionContext);
 
   return (
@@ -70,5 +70,3 @@ const Transactions = () => {
     </div>
   );
 };
-
-export default Transactions;
