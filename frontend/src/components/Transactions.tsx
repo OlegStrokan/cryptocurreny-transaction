@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetch from "../hooks/useFetch";
+import { useFetch } from "../hooks/useFetch";
 import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
 import { TransactionContext } from '../context/TransactionContext';
